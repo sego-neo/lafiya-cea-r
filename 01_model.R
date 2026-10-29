@@ -17,14 +17,15 @@ lafiya <- function(additionality = 0.94, include_child = TRUE) {
 lafiya(0.94) 
 lafiya(0.70) 
 lafiya(0.70, include_child=FALSE)
-#Note: three verified outputs (10.69 / 68.84 / 12.66 at 0.94) for lafiya(0.94)
+#Verified base case: lafiya(0.94)--> 10.69 / 68.84 / 12.66.
+   
 
 #2. Sensitivity Grid
 #Requires:tidyverse(install.packages("tidyverse"))
+library(tidyverse)
 grid <- expand_grid(add = seq(0.5, 1.0, by = 0.05),
                     child = c(TRUE, FALSE)) |>
   mutate(cpd = map2_dbl(add, child, ~ lafiya(.x, include_child = .y)[[1]]))
-grid
 print(grid, n = Inf)
 
 
